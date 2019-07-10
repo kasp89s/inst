@@ -2,7 +2,6 @@ function start() {
 	var subLimit = 1000,
 		dateObj = new Date(),
 		dateKey = dateObj.getFullYear() +'_'+ dateObj.getDate() +'_'+ dateObj.getMonth(),
-		buttons = document.getElementsByTagName('button'),
 		stack = [],
 		countSub = localStorage.getItem(dateKey + '_sub');
 
@@ -11,9 +10,7 @@ function start() {
 		return false;
 	}
 	
-	for (var i in buttons) {
-		stack.push(buttons[i]);
-	}
+	fillStack(stack);
 
 	function lazyClick() {
 		var button = stack.shift();
@@ -42,6 +39,32 @@ function start() {
 	2000);
 }
 	
+function fillStack(stack)
+{
+	var div = document.getElementsByTagName('div');
+
+	for (var i in div) {
+		try {
+			if (div[i].hasAttribute('aria-labelledby')) {
+				var button = div[i].getElementsByTagName('button')[0],
+					dives = div[i].getElementsByTagName('div'),
+					aprove = false;
+
+				for (var j in dives) {
+					if (["Рекомендации для вас", "Ваш подписчик"].indexOf(dives[j].firstChild.nodeValue) != -1) {
+						aprove = true;
+						break;
+					}
+				}
+				
+				if (aprove)
+					stack.push(button);
+			}
+		} catch (e) {
+		}
+	}
+}
+
 function reload()
 {
 	console.log('start reload');
