@@ -29,7 +29,7 @@ function start() {
 		if ("object" != typeof o) {
 				console.log('start reload');
 				setTimeout(function () {
-					window.location.href = '';
+					document.location.reload(true);
 				}, getRandomInt(60000, 70000));
 
 			return !1;
