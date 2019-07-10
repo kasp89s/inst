@@ -1,4 +1,5 @@
-var profile = 'kateyka892143';
+var profile = 'kateyka892143',
+	subList = JSON.parse(localStorage.getItem(profile + '_sublist'));
 
 function start() {
 	var limit = 1000,
@@ -21,6 +22,30 @@ function start() {
 		}
 	}
 
+	function unsubStackFilter () {
+		var li = document.getElementsByTagName('li');
+		
+		try {
+			for (var i in li) {
+				if ('undefined' != typeof li[i].getElementsByTagName('img')[0]) {
+					var a = li[i].getElementsByTagName('a'),
+						buttons = li[i].getElementsByTagName("button");
+					for (var j in a) {
+						if ('undefined' != typeof a[j].className && a[j].className.indexOf('notranslate') + 1) {
+							if (subList.indexOf(a[j].firstChild.nodeValue) === -1) {
+								console.log('Ydalyay dibila ' + a[j].firstChild.nodeValue + ' on ne podpisan!!!');
+								stack.push(buttons[0]);
+							}
+						}
+					}
+				}
+			}
+		} catch (e) {
+		}
+		
+		unsub();
+	}
+	
 	function unsubStack() {
 		var buttons = document.getElementsByTagName("button");
 		
@@ -71,7 +96,7 @@ function start() {
 	}
 
 
-	setTimeout(function () {unsubStack();}, getRandomInt(3e3, 5e3));
+	setTimeout(function () {unsubStackFilter();}, getRandomInt(3e3, 5e3));
 }
 
 if (window.location.href == 'https://www.instagram.com/' + profile + '/') {
