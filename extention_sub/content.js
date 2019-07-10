@@ -51,7 +51,7 @@ function fillStack(stack)
 					aprove = false;
 
 				for (var j in dives) {
-					if (["Рекомендации для вас", "Ваш подписчик"].indexOf(dives[j].firstChild.nodeValue) != -1) {
+					if (["Рекомендации Instagram"].indexOf(dives[j].firstChild.nodeValue) === -1) {
 						aprove = true;
 						break;
 					}
