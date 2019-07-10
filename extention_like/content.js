@@ -52,6 +52,9 @@ function getRandomInt(min, max) {
 if (window.location.href == 'https://www.instagram.com/') {
 	console.log('Hello from like bot plz enjoin now :)');
 	
+	setTimeout(function () {window.scrollTo(0, 0);}, 1000);
+	setTimeout(function () {window.scrollTo(0, 2000);}, 2000);
+	
 	setTimeout(
 		function () {
 			start();
