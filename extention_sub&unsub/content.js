@@ -1,124 +1,126 @@
 (function () {
-	var div = document.createElement('div'),
-		actionButton = (parseInt(localStorage.getItem('execute')) != 1) ? 
-		'<input style="width: 50px;" id="start-run" type="button" value="Старт">&nbsp;&nbsp;&nbsp;' : 
-		'<input style="width: 50px;" id="stop-run" type="button" value="Стоп">&nbsp;&nbsp;&nbsp;';
-		
-		div.innerHTML = '<div style="bottom: 0;left: 0;position: fixed; right: 0;background: #f2f2f2;border-top: 1px solid #e4e4e4;line-height: 40px;min-width: 980px;height: 50px; display: block;">'+
-		'<input style="width: 100px;" name="username" id="save-value" type="text" value="'+localStorage.getItem('instagram_username')+'" placeholder="Имя пользователя" />'+
-		'<input style="width: 50px;" type="button" id="save-username" value="save">&nbsp;&nbsp;&nbsp;'+
-		actionButton +
-		'<input id="sub-list-clear" type="button" value="Сбросить sub кэш">&nbsp;&nbsp;&nbsp;'+
-		'Отписка с <input name="username" id="unsub-from" type="number" value="'+localStorage.getItem('unsub_from')+'" placeholder="23" />'+
-		' по <input name="username" id="unsub-to" type="number" value="'+localStorage.getItem('unsub_to')+'" placeholder="9" />'+
-		'<input style="width: 50px;" type="button" id="save-unsub" value="save">&nbsp;&nbsp;&nbsp;'+
-		'</div>';
-		
-		document.getElementsByTagName("body")[0].appendChild(div);
-		
-		document.getElementById("save-username").addEventListener("click", function () {
-			var username = document.getElementById("save-value");
-			
-			localStorage.setItem('instagram_username', username.value);
-			console.log(username.value);
-		}, false);
+    var div = document.createElement('div'),
+        actionButton = (parseInt(localStorage.getItem('execute')) != 1) ?
+            '<input style="width: 50px;" id="start-run" type="button" value="Старт">&nbsp;&nbsp;&nbsp;' :
+            '<input style="width: 50px;" id="stop-run" type="button" value="Стоп">&nbsp;&nbsp;&nbsp;';
 
-		if (document.getElementById("start-run") != null)
-		document.getElementById("start-run").addEventListener("click", function () {
-			if (!localStorage.getItem('instagram_username')) {
-				alert('Не введено имя аккаунта'); return false;
-			}
+    div.innerHTML = '<div style="bottom: 0;left: 0;position: fixed; right: 0;background: #f2f2f2;border-top: 1px solid #e4e4e4;line-height: 40px;min-width: 980px;height: 50px; display: block;">' +
+        '<input style="width: 100px;" name="username" id="save-value" type="text" value="' + localStorage.getItem('instagram_username') + '" placeholder="Имя пользователя" />' +
+        '<input style="width: 50px;" type="button" id="save-username" value="save">&nbsp;&nbsp;&nbsp;' +
+        actionButton +
+        '<input id="sub-list-clear" type="button" value="Сбросить sub кэш">&nbsp;&nbsp;&nbsp;' +
+        'Отписка с <input name="username" id="unsub-from" type="number" value="' + localStorage.getItem('unsub_from') + '" placeholder="23" />' +
+        ' по <input name="username" id="unsub-to" type="number" value="' + localStorage.getItem('unsub_to') + '" placeholder="9" />' +
+        '<input style="width: 50px;" type="button" id="save-unsub" value="save">&nbsp;&nbsp;&nbsp;' +
+        '</div>';
 
-			if (!localStorage.getItem('unsub_from')) {
-				alert('Не введено отписка с'); return false;
-			}
-			
-			if (!localStorage.getItem('unsub_to')) {
-				alert('Не введено отписка по'); return false;
-			}
+    document.getElementsByTagName("body")[0].appendChild(div);
 
-			localStorage.setItem('execute', 1);
-			document.location.reload(true);
-			console.log('start');
-		}, false);
+    document.getElementById("save-username").addEventListener("click", function () {
+        var username = document.getElementById("save-value");
 
-		if (document.getElementById("stop-run") != null)
-		document.getElementById("stop-run").addEventListener("click", function () {
-			localStorage.setItem('execute', 0);
-			document.location.reload(true);
-			console.log('stop');
-		}, false);
+        localStorage.setItem('instagram_username', username.value);
+        console.log(username.value);
+    }, false);
 
-		document.getElementById("sub-list-clear").addEventListener("click", function () {
-			localStorage.removeItem(localStorage.getItem('instagram_username') + '_sublist');
-			localStorage.setItem('execute', 1);
-			document.location.reload(true);
-			console.log('sub-list-clear');
-		}, false);
-		
-		document.getElementById("save-unsub").addEventListener("click", function () {
-			localStorage.setItem('unsub_from', document.getElementById("unsub-from").value);
-			localStorage.setItem('unsub_to', document.getElementById("unsub-to").value);
-			document.location.reload(true);
-		}, false);
+    if (document.getElementById("start-run") != null)
+        document.getElementById("start-run").addEventListener("click", function () {
+            if (!localStorage.getItem('instagram_username')) {
+                alert('Не введено имя аккаунта');
+                return false;
+            }
+
+            if (!localStorage.getItem('unsub_from')) {
+                alert('Не введено отписка с');
+                return false;
+            }
+
+            if (!localStorage.getItem('unsub_to')) {
+                alert('Не введено отписка по');
+                return false;
+            }
+
+            localStorage.setItem('execute', 1);
+            document.location.reload(true);
+            console.log('start');
+        }, false);
+
+    if (document.getElementById("stop-run") != null)
+        document.getElementById("stop-run").addEventListener("click", function () {
+            localStorage.setItem('execute', 0);
+            document.location.reload(true);
+            console.log('stop');
+        }, false);
+
+    document.getElementById("sub-list-clear").addEventListener("click", function () {
+        localStorage.removeItem(localStorage.getItem('instagram_username') + '_sublist');
+        localStorage.setItem('execute', 1);
+        document.location.reload(true);
+        console.log('sub-list-clear');
+    }, false);
+
+    document.getElementById("save-unsub").addEventListener("click", function () {
+        localStorage.setItem('unsub_from', document.getElementById("unsub-from").value);
+        localStorage.setItem('unsub_to', document.getElementById("unsub-to").value);
+        document.location.reload(true);
+    }, false);
 })();
 
 if (localStorage.getItem('instagram_username') && localStorage.getItem('execute') == 1) {
-	var profile = localStorage.getItem('instagram_username'),
-		limitPerPage = getRandomInt(20, 25);
-		subscribers = JSON.parse(localStorage.getItem(profile + '_sublist')),
-		random = (subscribers) ? subscribers[getRandomInt(0, subscribers.length - 1)] : null,
-		subToParse = localStorage.getItem(profile + '_random_sub');
+    var profile = localStorage.getItem('instagram_username'),
+        limitPerPage = getRandomInt(20, 25);
+    subscribers = JSON.parse(localStorage.getItem(profile + '_sublist')),
+        random = (subscribers) ? subscribers[getRandomInt(0, subscribers.length - 1)] : null,
+        subToParse = localStorage.getItem(profile + '_random_sub');
 
-	if (subscribers === null) {
-		if (window.location.href != 'https://www.instagram.com/' + profile + '/') {
-			window.location.href = 'https://www.instagram.com/' + profile + '/';
-		} else {
-			updateSubscribers();
-		}
-	} else {
-		var hours = new Date().getHours();
-		if (hours > parseInt(localStorage.getItem('unsub_from')) || hours < parseInt(localStorage.getItem('unsub_to'))) {
-			// отписка
-			if (window.location.href != 'https://www.instagram.com/'+profile+'/') {
-					window.location.href = 'https://www.instagram.com/'+profile+'/';
-			}	
-			console.log('старт отписка');
-			startUnsub();
-		} else {
-			// подписка
-			if (!subToParse) {
-				localStorage.setItem(profile + '_random_sub', random);
+    if (subscribers === null) {
+        if (window.location.href != 'https://www.instagram.com/' + profile + '/') {
+            window.location.href = 'https://www.instagram.com/' + profile + '/';
+        } else {
+            updateSubscribers();
+        }
+    } else {
+        var hours = new Date().getHours();
+        if (hours > parseInt(localStorage.getItem('unsub_from')) || hours < parseInt(localStorage.getItem('unsub_to'))) {
+            // отписка
+            if (window.location.href != 'https://www.instagram.com/' + profile + '/') {
+                window.location.href = 'https://www.instagram.com/' + profile + '/';
+            }
+            console.log('старт отписка');
+            startUnsub();
+        } else {
+            // подписка
+            if (!subToParse) {
+                localStorage.setItem(profile + '_random_sub', random);
 
-				window.location.href = 'https://www.instagram.com/' + random + '/';
-			} else {
-				if (window.location.href != 'https://www.instagram.com/' + subToParse + '/') {
-					window.location.href = 'https://www.instagram.com/' + subToParse + '/';
-				}
-				console.log('старт подписка');
-				startSubscribe();
-			}
-		}
-	}
+                window.location.href = 'https://www.instagram.com/' + random + '/';
+            } else {
+                if (window.location.href != 'https://www.instagram.com/' + subToParse + '/') {
+                    window.location.href = 'https://www.instagram.com/' + subToParse + '/';
+                }
+                console.log('старт подписка');
+                startSubscribe();
+            }
+        }
+    }
 }
 
-function startUnsub()
-{
-	var a = document.getElementsByTagName("a"),
-		current = 0,
-		step = 5000,
-		currentStep = 0,
-		stack = [];
-		
-	for (var i in a) {
-		try {
-			if(a[i].hasAttribute('href') && a[i].getAttribute('href') == '/' + profile + '/following/')
-				a[i].click();
-		} catch (e) {
-		}
-	}
-	
-	function scrollSubList() {
+function startUnsub() {
+    var a = document.getElementsByTagName("a"),
+        current = 0,
+        step = 5000,
+        currentStep = 0,
+        stack = [];
+
+    for (var i in a) {
+        try {
+            if (a[i].hasAttribute('href') && a[i].getAttribute('href') == '/' + profile + '/following/')
+                a[i].click();
+        } catch (e) {
+        }
+    }
+
+    function scrollSubList() {
         currentStep++;
         document.getElementsByClassName('isgrP')[0].scrollTo(current, current + step);
 
@@ -130,71 +132,75 @@ function startUnsub()
             unsubStackFilter();
         }
     }
-	
-	var scrollInterval = setInterval(
+
+    var scrollInterval = setInterval(
         function () {
             scrollSubList()
         },
-    5000);
-		
-	function unsubStackFilter () {
-		var li = document.getElementsByTagName('li'),
-			maxStackLenght = getRandomInt(25, 30);
-		
-		try {
-			for (var i in li) {
-				if ('undefined' != typeof li[i].getElementsByTagName('img')[0]) {
-					var a = li[i].getElementsByTagName('a'),
-						buttons = li[i].getElementsByTagName("button");
-					for (var j in a) {
-						if ('undefined' != typeof a[j].className && a[j].className.indexOf('notranslate') + 1) {
-							if (subscribers.indexOf(a[j].firstChild.nodeValue) === -1) {
-								console.log('Ydalyay dibila ' + a[j].firstChild.nodeValue + ' on ne podpisan!!!');
-								if (stack.length <= maxStackLenght)
-								stack.push(buttons[0]);
-							}
-						}
-					}
-				}
-			}
-		} catch (e) {
-		}
-		console.log(stack.length);
-		unsub();
-	}
-	
-	function unsub() {
-		var button = stack.shift();
-			if ("object" != typeof button) {
-				console.log('start reload');
-				setTimeout(function () {
-					document.location.reload(true);
-				}, getRandomInt(1200000, 1500000));
+        5000);
 
-				return !1;
-			}
+    function unsubStackFilter() {
+        var li = document.getElementsByTagName('li'),
+            maxStackLenght = getRandomInt(25, 30);
 
-		button.click();
-		
-		setTimeout(function () {pressCancelButton();}, getRandomInt(3e3, 5e3));
-	}
-	
-	function pressCancelButton() {
-		var buttons = document.getElementsByTagName("button");
-		
-		for (var i in buttons) {
-				try {
-					if (buttons[i].firstChild.nodeValue === 'Отменить подписку') {
-						console.log('unsub');
-						buttons[i].click();
+        try {
+            for (var i in li) {
+                if ('undefined' != typeof li[i].getElementsByTagName('img')[0]) {
+                    var a = li[i].getElementsByTagName('a'),
+                        buttons = li[i].getElementsByTagName("button");
+                    for (var j in a) {
+                        if ('undefined' != typeof a[j].className && a[j].className.indexOf('notranslate') + 1) {
+                            if (subscribers.indexOf(a[j].firstChild.nodeValue) === -1) {
+                                console.log('Ydalyay dibila ' + a[j].firstChild.nodeValue + ' on ne podpisan!!!');
+                                if (stack.length <= maxStackLenght)
+                                    stack.push(buttons[0]);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+        }
+        console.log(stack.length);
+        unsub();
+    }
 
-						setTimeout(function () {unsub();}, getRandomInt(3e3, 5e3));
-						break;
-					}
-				} catch (e) {
-				}
-		}
-	}
+    function unsub() {
+        var button = stack.shift();
+        if ("object" != typeof button) {
+            console.log('start reload');
+            setTimeout(function () {
+                document.location.reload(true);
+            }, getRandomInt(1200000, 1500000));
+
+            return !1;
+        }
+
+        button.click();
+
+        setTimeout(function () {
+            pressCancelButton();
+        }, getRandomInt(3e3, 5e3));
+    }
+
+    function pressCancelButton() {
+        var buttons = document.getElementsByTagName("button");
+
+        for (var i in buttons) {
+            try {
+                if (buttons[i].firstChild.nodeValue === 'Отменить подписку') {
+                    console.log('unsub');
+                    buttons[i].click();
+
+                    setTimeout(function () {
+                        unsub();
+                    }, getRandomInt(3e3, 5e3));
+                    break;
+                }
+            } catch (e) {
+            }
+        }
+    }
 }
 
 function startSubscribe() {
