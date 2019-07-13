@@ -65,8 +65,12 @@
         document.location.reload(true);
     }, false);
 })();
-
+	
 if (localStorage.getItem('instagram_username') && localStorage.getItem('execute') == 1) {
+	var rezerveTimeout = setTimeout(function () {document.location.reload(true);}, 60000);
+
+	var errorTimeout = setTimeout(function () {document.location.reload(true);}, 3600000);
+	
     var profile = localStorage.getItem('instagram_username'),
         limitPerPage = getRandomInt(20, 25);
     subscribers = JSON.parse(localStorage.getItem(profile + '_sublist')),
@@ -141,7 +145,7 @@ function startUnsub() {
 
     function unsubStackFilter() {
         var li = document.getElementsByTagName('li'),
-            maxStackLenght = getRandomInt(25, 30);
+            maxStackLenght = getRandomInt(10, 15);
 
         try {
             for (var i in li) {
@@ -162,6 +166,8 @@ function startUnsub() {
         } catch (e) {
         }
         console.log(stack.length);
+		
+		clearTimeout(rezerveTimeout);
         unsub();
     }
 
@@ -241,6 +247,14 @@ function startSubscribe() {
             document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
             selectBestVariants();
         }, 8000);
+        setTimeout(function () {
+            document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
+            selectBestVariants();
+        }, 10000);
+        setTimeout(function () {
+            document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
+            selectBestVariants();
+        }, 12000);
     }
 
     function selectBestVariants() {
@@ -261,6 +275,7 @@ function startSubscribe() {
         }
 
         console.log(stack);
+		clearTimeout(rezerveTimeout);
         pushTheButton();
     }
 
@@ -298,7 +313,8 @@ function updateSubscribers() {
         subList = [],
         a = document.getElementsByTagName('a');
 
-
+	clearTimeout(rezerveTimeout);
+	
     function scrollSubList() {
         currentStep++;
         console.log('step ' + currentStep + ' of ' + parseInt(allSubs / usersOneScroll))
