@@ -45,13 +45,21 @@ function scrollSubList() {
         setTimeout(function () {
             modal.scrollTo(modalScrols, modalScrols + 4000);
 			modalScrols+= 4000;
-			selectBestVariants();
         }, 2000);
+		setTimeout(function () {
+            modal.scrollTo(modalScrols, modalScrols + 4000);
+			modalScrols+= 4000;
+        }, 4000);
+		setTimeout(function () {
+            modal.scrollTo(modalScrols, modalScrols + 4000);
+			modalScrols+= 4000;
+			selectBestVariants();
+        }, 6000);
 }
 	
 function selectBestVariants() {
         var li = document.getElementsByClassName('i0EQd')[0].getElementsByTagName('div')[0].getElementsByTagName('button');
-		console.log(li);
+
         var count = 0;
         for (var i in li) {
             try {
@@ -81,15 +89,16 @@ function pushTheButton() {
 			
         if (typeof button === 'object') {
 			currentAction++;
-            console.log('sub');
+            console.log('кнопка');
             button.click();
+			
+			setTimeout(function () {
+				pushTheButton();
+			}, getRandomInt(3000, 5000));
         } else {
+			console.log('листаем скролл');
 			scrollSubList();
 		}
-
-        setTimeout(function () {
-            pushTheButton();
-        }, getRandomInt(3000, 5000));
 }
 	
 function simulateMouseover(target) {
