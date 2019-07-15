@@ -245,11 +245,9 @@ function startSubscribe() {
         }, 6000);
         setTimeout(function () {
             document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
-            selectBestVariants();
         }, 8000);
         setTimeout(function () {
             document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
-            selectBestVariants();
         }, 10000);
         setTimeout(function () {
             document.getElementsByClassName('isgrP')[0].scrollTo(0, 5000);
