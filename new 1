@@ -1,0 +1,106 @@
+var div = document.getElementsByClassName("_bz0w"),
+	truePosts = [],
+	currentAction  = 0,
+	modalScrols = 0,
+	limitPerPage = getRandomInt(20, 25),
+	stack = [];
+
+for (var i in div) {
+	try {
+	var link = div[i].getElementsByTagName('a')[0];
+	simulateMouseover(link);
+	
+	var countBlock = div[i].getElementsByClassName('qn-0x')[0].getElementsByTagName('span')[0];
+	
+	if (parseInt(countBlock.firstChild.nodeValue) >= 100)
+		truePosts.push(i);
+	
+	} catch (e) {}
+}
+
+//if (truePosts.length == 0)
+//	return false;
+
+var posts = document.getElementsByClassName("eLAPa"),
+	postToParse = getRandomInt(0, truePosts.length - 1);
+
+posts[postToParse].click();
+
+setTimeout(function () {openLikersModal();}, 4000);
+
+function openLikersModal()
+{
+	var link = document.getElementsByClassName("_8A5w5");
+		
+		link[link.length - 1].click();
+		
+		setTimeout(function () {selectBestVariants();}, 4000);
+}
+
+function scrollSubList() {
+	var modal = document.getElementsByClassName('i0EQd')[0].getElementsByTagName('div')[0];
+	
+	stack = [];
+	
+        setTimeout(function () {
+            modal.scrollTo(modalScrols, modalScrols + 4000);
+			modalScrols+= 4000;
+			selectBestVariants();
+        }, 2000);
+}
+	
+function selectBestVariants() {
+        var li = document.getElementsByClassName('i0EQd')[0].getElementsByTagName('div')[0].getElementsByTagName('button');
+		console.log(li);
+        var count = 0;
+        for (var i in li) {
+            try {
+                if (li[i].firstChild.nodeValue === 'Подписаться') {
+                    stack.push(li[i]);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        console.log(stack);
+		//clearTimeout(rezerveTimeout);
+        pushTheButton();
+}
+
+function pushTheButton() {
+        var button = stack.shift();
+		
+			if (currentAction >= limitPerPage) {
+				console.log('end');
+				setTimeout(function () {
+					document.location.reload(true);
+				}, getRandomInt(1800000, 2000000));
+			    return false;
+			}
+			
+        if (typeof button === 'object') {
+			currentAction++;
+            console.log('sub');
+            button.click();
+        } else {
+			scrollSubList();
+		}
+
+        setTimeout(function () {
+            pushTheButton();
+        }, getRandomInt(3000, 5000));
+}
+	
+function simulateMouseover(target) {
+  var event = new MouseEvent('mouseover', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+
+  !target.dispatchEvent(event);
+}
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
