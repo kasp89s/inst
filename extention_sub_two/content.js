@@ -22,7 +22,6 @@
         var username = document.getElementById("save-value");
 
         localStorage.setItem('instagram_username', username.value);
-        console.log(username.value);
     }, false);
 
     if (document.getElementById("start-run") != null)
@@ -88,7 +87,8 @@ if (localStorage.getItem('instagram_username') && localStorage.getItem('execute'
 
     var profile = localStorage.getItem('instagram_username'),
         limitPerPage = getRandomInt(20, 25);
-    subscribers = JSON.parse(localStorage.getItem(profile + '_sublist')),
+		dateKey = dateObj.getFullYear() +'_'+ dateObj.getDate() +'_'+ dateObj.getMonth()
+		subscribers = JSON.parse(localStorage.getItem(profile + '_sublist' + dateKey)),
         random = (subscribers) ? subscribers[getRandomInt(0, subscribers.length - 1)] : null,
         subToParse = localStorage.getItem(profile + '_random_sub'),
         tagToParse = localStorage.getItem(profile + '_tag_value');
@@ -202,7 +202,9 @@ function startSubscribeTag() {
         setTimeout(function () {
             modal.scrollTo(modalScrols, modalScrols + 4000);
             modalScrols += 4000;
-            selectBestVariants();
+			setTimeout(function () {
+				selectBestVariants();
+			}, 3000);
         }, 4000);
     }
 
@@ -216,11 +218,9 @@ function startSubscribeTag() {
                     stack.push(li[i]);
                 }
             } catch (e) {
-                console.log(e);
             }
         }
 
-        console.log(stack);
         clearTimeout(rezerveTimeout);
         pushTheButton();
     }
@@ -238,14 +238,14 @@ function startSubscribeTag() {
 
         if (typeof button === 'object') {
             currentAction++;
-            console.log('кнопка');
+            console.log('sub');
             button.click();
 
             setTimeout(function () {
                 pushTheButton();
             }, getRandomInt(1000, 2000));
         } else {
-            console.log('листаем скролл');
+            console.log('scroll');
             scrollSubList();
         }
     }
@@ -284,7 +284,6 @@ function startUnsub() {
 
         if (currentStep >= 5) {
             clearInterval(scrollInterval);
-            console.log('start parse');
             unsubStackFilter();
         }
     }
@@ -307,7 +306,7 @@ function startUnsub() {
                     for (var j in a) {
                         if ('undefined' != typeof a[j].className && a[j].className.indexOf('notranslate') + 1) {
                             if (subscribers.indexOf(a[j].firstChild.nodeValue) === -1) {
-                                console.log('Ydalyay dibila ' + a[j].firstChild.nodeValue + ' on ne podpisan!!!');
+                                console.log('to remove ' + a[j].firstChild.nodeValue);
                                 if (stack.length <= maxStackLenght)
                                     stack.push(buttons[0]);
                             }
@@ -317,7 +316,6 @@ function startUnsub() {
             }
         } catch (e) {
         }
-        console.log(stack.length);
 
         clearTimeout(rezerveTimeout);
         unsub();
@@ -326,7 +324,7 @@ function startUnsub() {
     function unsub() {
         var button = stack.shift();
         if ("object" != typeof button) {
-            console.log('start reload');
+            console.log('end');
             setTimeout(function () {
                 document.location.reload(true);
             }, getRandomInt(1200000, 1500000));
@@ -368,7 +366,6 @@ function startSubscribe() {
     var stack = [];
 
     function openListModal() {
-        console.log(subToParse);
         var a = document.getElementsByTagName('a');
         for (var i in a) {
             try {
@@ -420,11 +417,9 @@ function startSubscribe() {
                     count++
                 }
             } catch (e) {
-                console.log(e);
             }
         }
 
-        console.log(stack);
         clearTimeout(rezerveTimeout);
         pushTheButton();
     }
