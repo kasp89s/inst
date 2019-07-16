@@ -1,4 +1,7 @@
 (function () {
+	if (window.location.href.indexOf('www.instagram.com') === -1)
+		return false;
+	
     var div = document.createElement('div'),
         actionButton = (parseInt(localStorage.getItem('execute')) != 1) ?
             '<input style="width: 50px;" id="start-run" type="button" value="Старт">&nbsp;&nbsp;&nbsp;' :
@@ -86,8 +89,9 @@ if (localStorage.getItem('instagram_username') && localStorage.getItem('execute'
     }, 3600000);
 
     var profile = localStorage.getItem('instagram_username'),
-        limitPerPage = getRandomInt(20, 25);
-		dateKey = dateObj.getFullYear() +'_'+ dateObj.getDate() +'_'+ dateObj.getMonth()
+        limitPerPage = getRandomInt(20, 25),
+		dateObj = new Date(),
+		dateKey = dateObj.getFullYear() +'_'+ dateObj.getDate() +'_'+ dateObj.getMonth(),
 		subscribers = JSON.parse(localStorage.getItem(profile + '_sublist' + dateKey)),
         random = (subscribers) ? subscribers[getRandomInt(0, subscribers.length - 1)] : null,
         subToParse = localStorage.getItem(profile + '_random_sub'),
@@ -120,10 +124,12 @@ if (localStorage.getItem('instagram_username') && localStorage.getItem('execute'
 
                     window.location.href = 'https://www.instagram.com/explore/tags/' + tag + '/';
                 } else {
-                    if (window.location.href != 'https://www.instagram.com/explore/tags/' + tagToParse + '/') {
+                    if (window.location.href != 'https://www.instagram.com/explore/tags/' + encodeURI(tagToParse) + '/') {
                         window.location.href = 'https://www.instagram.com/explore/tags/' + tagToParse + '/';
                     } else {
-                        startSubscribeTag();
+						setTimeout(function () {
+							startSubscribeTag();
+						}, 4000);
                     }
                 }
             } else {
@@ -469,7 +475,6 @@ function updateSubscribers() {
 
         if (currentStep >= parseInt(allSubs / usersOneScroll)) {
             clearInterval(scrollInterval);
-            console.log('start parse');
             parseNames();
         }
     }
@@ -490,7 +495,7 @@ function updateSubscribers() {
         } catch (e) {
         }
 
-        localStorage.setItem(profile + '_sublist', JSON.stringify(subList));
+        localStorage.setItem(profile + '_sublist' + dateKey, JSON.stringify(subList));
         console.log(subList);
         document.location.reload(true);
     }
