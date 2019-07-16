@@ -116,7 +116,7 @@ if (localStorage.getItem('instagram_username') && localStorage.getItem('execute'
                     var tags = localStorage.getItem('sub_tag_value').split(" "),
                         tag = tags[getRandomInt(0, tags.length - 1)];
 
-                    localStorage.setItem(profile + '_tag_value', tagToParse);
+                    localStorage.setItem(profile + '_tag_value', tag);
 
                     window.location.href = 'https://www.instagram.com/explore/tags/' + tag + '/';
                 } else {
