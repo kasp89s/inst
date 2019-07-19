@@ -57,7 +57,10 @@
         }, false);
 
     document.getElementById("sub-list-clear").addEventListener("click", function () {
-        localStorage.removeItem(localStorage.getItem('instagram_username') + '_sublist');
+		var dateObj = new Date(),
+			dateKey = dateObj.getFullYear() +'_'+ dateObj.getDate() +'_'+ dateObj.getMonth();
+
+        localStorage.removeItem(localStorage.getItem('instagram_username') + '_sublist' + dateKey);
         localStorage.setItem('execute', 1);
         document.location.reload(true);
         console.log('sub-list-clear');
@@ -249,7 +252,7 @@ function startSubscribeTag() {
 
             setTimeout(function () {
                 pushTheButton();
-            }, getRandomInt(1000, 2000));
+            }, getRandomInt(60000, 70000));
         } else {
             console.log('scroll');
             scrollSubList();
@@ -356,7 +359,7 @@ function startUnsub() {
 
                     setTimeout(function () {
                         unsub();
-                    }, getRandomInt(3e3, 5e3));
+                    }, getRandomInt(60000, 70000));
                     break;
                 }
             } catch (e) {
@@ -446,7 +449,7 @@ function startSubscribe() {
 
         setTimeout(function () {
             pushTheButton();
-        }, getRandomInt(3000, 5000));
+        }, getRandomInt(60000, 70000));
     }
 
     setTimeout(function () {
