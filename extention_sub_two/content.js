@@ -241,7 +241,7 @@ function startSubscribeTag() {
             console.log('end');
             setTimeout(function () {
                 document.location.reload(true);
-            }, getRandomInt(660000, 700000));
+            }, getRandomInt(80000, 90000));
             return false;
         }
 
@@ -336,7 +336,7 @@ function startUnsub() {
             console.log('end');
             setTimeout(function () {
                 document.location.reload(true);
-            }, getRandomInt(1200000, 1500000));
+            }, getRandomInt(80000, 90000));
 
             return !1;
         }
@@ -443,7 +443,7 @@ function startSubscribe() {
             console.log('end');
             setTimeout(function () {
                 document.location.reload(true);
-            }, getRandomInt(1800000, 2000000));
+            }, getRandomInt(80000, 90000));
             return false;
         }
 
