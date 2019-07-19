@@ -160,7 +160,7 @@ function startSubscribeTag() {
         truePosts = [],
         currentAction = 0,
         modalScrols = 0,
-        limitPerPage = getRandomInt(20, 25),
+        limitPerPage = getRandomInt(10, 11),
         stack = [];
 
     for (var i in div) {
@@ -241,7 +241,7 @@ function startSubscribeTag() {
             console.log('end');
             setTimeout(function () {
                 document.location.reload(true);
-            }, getRandomInt(1800000, 2000000));
+            }, getRandomInt(660000, 700000));
             return false;
         }
 
